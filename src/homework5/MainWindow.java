@@ -40,12 +40,20 @@ public class MainWindow extends JFrame {
 		this.getContentPane().add(statusLine, BorderLayout.SOUTH);
 	}
 	
-	public static void main(String[] args) {
+	public static void launchWindow(){
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				JFrame win = new MainWindow();
 				win.setVisible(true);
 			}
 		});
+	}
+	
+	public void addPluginToList(String plugin){
+		((DefaultListModel<String>)plugins).addElement(plugin);
+	}
+	
+	public void removePluginFromList(String plugin){
+		((DefaultListModel<String>)plugins).removeElement(plugin);
 	}
 }
