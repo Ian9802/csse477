@@ -12,7 +12,7 @@ import javax.swing.JScrollPane;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
-public class MainWindow extends JFrame implements ListSelectionListener {
+public class MainWindow extends JFrame implements ListSelectionListener, PluginHost {
 	private static final long serialVersionUID = 5675542081671881032L;
 	
 	private JList<String> pluginList;
@@ -54,5 +54,10 @@ public class MainWindow extends JFrame implements ListSelectionListener {
 		this.getContentPane().remove(executionPanel);
 		executionPanel = v.getInterface();
 		this.getContentPane().add(executionPanel, BorderLayout.CENTER);
+	}
+
+	@Override
+	public void postStatus(String status) {
+		statusLine.setText(status);
 	}
 }
