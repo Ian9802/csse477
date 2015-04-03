@@ -16,6 +16,7 @@ public class Main {
 				System.out.println(plugin);
 				plugin.setPluginHost(win);
 				win.addPluginToList(plugin);
+				new Thread(plugin).start();
 			}
 		}
 	}

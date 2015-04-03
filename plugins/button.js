@@ -4,5 +4,5 @@ function getName() {
 }
 
 function run() {
-	
+	print("Hello");
 }
