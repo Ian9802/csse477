@@ -7,7 +7,7 @@ import javax.swing.JFrame;
 public class Main {
 
 	public static void main(String[] args) {
-		MainWindow win = new MainWindow();
+		final MainWindow win = new MainWindow();
 		javax.swing.SwingUtilities.invokeLater(new Runnable() {
 			public void run() {
 				win.setVisible(true);
@@ -17,6 +17,7 @@ public class Main {
 		handler.getFiles();
 		if (handler.runners != null) {
 			for (Plugin plugin : handler.runners) {
+				System.out.println(plugin);
 				win.addPluginToList(plugin);
 			}
 		}

@@ -10,13 +10,16 @@ public class FileImporter {
 	};
 	
 	public File[] getPluginsFromFolder(){
-		File dir = new File("../plugins/");
+		File dir = new File("./plugins/");
 		File [] files = dir.listFiles(new FilenameFilter(){
 			@Override
 			public boolean accept(File dir, String name){
 				return name.endsWith(".js");
 			}
 		});
+		for(File file : files){
+			System.out.println(file);
+		}
 		return files;
 	};
 	

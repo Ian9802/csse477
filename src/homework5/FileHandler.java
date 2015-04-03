@@ -11,6 +11,7 @@ public class FileHandler {
 
 	public FileHandler() {
 		this.importer = new FileImporter();
+		this.runners = new ArrayList<JavaScriptRunner>();
 	};
 
 	public void getFiles() {
