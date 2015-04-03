@@ -1,6 +1,7 @@
 package homework5;
 
 import java.awt.BorderLayout;
+import java.awt.CardLayout;
 
 import javax.swing.BorderFactory;
 import javax.swing.JFrame;
@@ -8,40 +9,40 @@ import javax.swing.JLabel;
 import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.ListSelectionModel;
 import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 
 public class MainWindow extends JFrame implements ListSelectionListener, PluginHost {
 	private static final long serialVersionUID = 5675542081671881032L;
 	
-	private JList<String> pluginList;
-	private PluginListModel plugins;
-	private JPanel executionPanel;
-	private JLabel statusLine;
+	private PluginListModel plugins = new PluginListModel();
+	private JList<String> pluginList = new JList<String>(plugins);;
+	private JLabel statusLine = new JLabel("No messages.");
+	private JPanel executionPanel = new JPanel(new CardLayout());
 	
 	MainWindow() {
 		super("Homework 5");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		plugins = new PluginListModel();
-		pluginList = new JList<String>(plugins);
 		pluginList.setPrototypeCellValue("MMMMMMMMMMMMMMMM");
-		
-		executionPanel = new JPanel();
-		statusLine = new JLabel("No Messages.");
+		pluginList.addListSelectionListener(this);
+		pluginList.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
 		
 		executionPanel.setBorder(BorderFactory.createLoweredBevelBorder());
+		executionPanel.add(new JPanel(), "__default");
+		
 		
 		this.setSize(841,594);
 		this.getContentPane().add(new JScrollPane(pluginList), BorderLayout.WEST);
 		this.getContentPane().add(executionPanel, BorderLayout.CENTER);
 		this.getContentPane().add(statusLine, BorderLayout.SOUTH);
-		
 	}
 	
 	public void addPluginToList(Plugin plugin){
 		plugins.add(plugin);
 		this.postStatus("Added plugin: "+ plugin.getName());
+		executionPanel.add(plugin.getInterface(), plugin.getName());
 	}
 	
 	public void removePluginFromList(Plugin plugin){
@@ -50,10 +51,16 @@ public class MainWindow extends JFrame implements ListSelectionListener, PluginH
 
 	@Override
 	public void valueChanged(ListSelectionEvent e) {
-		Plugin v = plugins.get(e.getFirstIndex());
-		this.getContentPane().remove(executionPanel);
-		executionPanel = v.getInterface();
-		this.getContentPane().add(executionPanel, BorderLayout.CENTER);
+		if(e.getValueIsAdjusting()) {
+			return;
+		}
+		int i = pluginList.getSelectedIndex();
+		CardLayout cl = (CardLayout)(executionPanel.getLayout());
+		if(i < 0) {
+			cl.show(executionPanel, "__default");
+		} else {
+			cl.show(executionPanel, plugins.get(i).getName());
+		}
 	}
 
 	@Override
