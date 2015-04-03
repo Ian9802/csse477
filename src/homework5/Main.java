@@ -1,9 +1,5 @@
 package homework5;
 
-import java.util.ArrayList;
-
-import javax.swing.JFrame;
-
 public class Main {
 
 	public static void main(String[] args) {
@@ -18,6 +14,7 @@ public class Main {
 		if (handler.runners != null) {
 			for (Plugin plugin : handler.runners) {
 				System.out.println(plugin);
+				plugin.setPluginHost(win);
 				win.addPluginToList(plugin);
 			}
 		}

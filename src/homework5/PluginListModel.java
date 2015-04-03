@@ -16,8 +16,8 @@ public class PluginListModel extends AbstractListModel<String> {
 	}
 
 	@Override
-	public String getElementAt(int arg0) {
-		return list.get(arg0).getName();
+	public String getElementAt(int i) {
+		return list.get(i).getName();
 	}
 
 	@Override
@@ -27,12 +27,12 @@ public class PluginListModel extends AbstractListModel<String> {
 	
 	public void add(Plugin e) {
 		list.add(e);
-		this.fireContentsChanged(this, list.size()-1, list.size()-1);
+		this.fireIntervalAdded(this, list.size()-1, list.size()-1);
 	}
 	
 	public void remove(Plugin e) {
 		list.remove(e);
-		this.fireContentsChanged(this, list.size(), list.size());
+		this.fireIntervalRemoved(this, list.size(), list.size());
 	}
 	
 	public Plugin get(int i) {
