@@ -19,28 +19,13 @@ public class FileHandler {
 	};
 	
 	public Object runFile(int selected){
-		String stringifiedJS = makeStringFromJS(this.files[selected]);
-		if(stringifiedJS.isEmpty()){
+		Object response = runner.runJavascript(this.files[selected]);
+		if (response.equals(this.files[selected])){
 			return null;
 		}else{
-			Object response = runner.runJavascript(stringifiedJS);
-			if (response.equals(stringifiedJS)){
-				return null;
-			}else{
-				return response;
-			}
+			return response;
 		}
 	};
-	
-	private String makeStringFromJS(File selectedFile){
-		try {
-			return new Scanner(selectedFile).useDelimiter("\\Z").next();
-		} catch (FileNotFoundException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-			return "";
-		}
-	}
 	
 	public void printListOfFiles(){
 		this.importer.printFiles(this.files);
