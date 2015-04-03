@@ -2,6 +2,7 @@ package homework5;
 
 import java.awt.BorderLayout;
 import java.awt.Dimension;
+import java.util.List;
 
 import javax.swing.BorderFactory;
 import javax.swing.DefaultListModel;
@@ -11,22 +12,24 @@ import javax.swing.JList;
 import javax.swing.JPanel;
 import javax.swing.JScrollPane;
 import javax.swing.ListModel;
+import javax.swing.event.ListSelectionEvent;
+import javax.swing.event.ListSelectionListener;
 
-public class MainWindow extends JFrame {
+public class MainWindow extends JFrame implements ListSelectionListener {
 	private static final long serialVersionUID = 5675542081671881032L;
 	
-	private JList pluginList;
-	private ListModel plugins;
+	private JList<String> pluginList;
+	private PluginListModel pluginNames;
 	private JPanel executionPanel;
 	private JLabel statusLine;
+	private List<Plugin> plugins;
 	
 	MainWindow() {
 		super("Homework 5");
 		this.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
 		
-		plugins = new DefaultListModel<String>();
-		((DefaultListModel<String>)plugins).addElement("Plugins");
-		pluginList = new JList(plugins);
+		pluginNames = new PluginListModel();
+		pluginList = new JList<String>(pluginNames);
 		pluginList.setPrototypeCellValue("MMMMMMMMMMMMMMMM");
 		
 		executionPanel = new JPanel();
@@ -49,11 +52,19 @@ public class MainWindow extends JFrame {
 		});
 	}
 	
-	public void addPluginToList(String plugin){
-		((DefaultListModel<String>)plugins).addElement(plugin);
+	public void addPluginToList(Plugin plugin){
+		plugins.add(plugin);
 	}
 	
-	public void removePluginFromList(String plugin){
-		((DefaultListModel<String>)plugins).removeElement(plugin);
+	public void removePluginFromList(Plugin plugin){
+		plugins.remove(plugin);
+	}
+
+	@Override
+	public void valueChanged(ListSelectionEvent e) {
+		Plugin v = pluginNames.get(e.getFirstIndex());
+		this.getContentPane().remove(executionPanel);
+		executionPanel = v.getInterface();
+		this.getContentPane().add(executionPanel, BorderLayout.CENTER);
 	}
 }
