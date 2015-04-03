@@ -2,7 +2,7 @@ package homework5;
 
 import java.io.File;
 import java.io.FilenameFilter;
-
+import java.util.ArrayList;
 
 public class FileImporter {
 
@@ -20,7 +20,7 @@ public class FileImporter {
 		return files;
 	};
 	
-	public void printFiles(File [] files){
+	public void printFiles(ArrayList<File> files){
 		for(File file : files){
 			System.out.println(file);
 		}
