@@ -47,6 +47,7 @@ public class MainWindow extends JFrame implements ListSelectionListener, PluginH
 	
 	public void removePluginFromList(Plugin plugin){
 		plugins.remove(plugin);
+		executionPanel.remove(plugin.getInterface());
 	}
 
 	@Override

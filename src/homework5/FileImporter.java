@@ -17,9 +17,6 @@ public class FileImporter {
 				return name.endsWith(".js");
 			}
 		});
-		for(File file : files){
-			System.out.println(file);
-		}
 		return files;
 	};
 	
