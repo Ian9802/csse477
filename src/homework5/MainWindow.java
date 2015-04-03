@@ -40,15 +40,6 @@ public class MainWindow extends JFrame implements ListSelectionListener {
 		this.getContentPane().add(statusLine, BorderLayout.SOUTH);
 	}
 	
-	public static void launchWindow(){
-		javax.swing.SwingUtilities.invokeLater(new Runnable() {
-			public void run() {
-				JFrame win = new MainWindow();
-				win.setVisible(true);
-			}
-		});
-	}
-	
 	public void addPluginToList(Plugin plugin){
 		plugins.add(plugin);
 	}
